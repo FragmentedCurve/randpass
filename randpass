@@ -60,38 +60,31 @@ for arg in $args; do
 	case ${arg} in
 		"-n")
 			NLFLAG="YES"
-			shift
 			;;
 		"-c")
 			count=${2}
-			shift
 			;;
 		"-a")
 			alpha="${alpha}${TINYALPHA}"
-			shift
 			;;
 		"-A")
 			alpha="${alpha}${BIGALPHA}"
-			shift
 			;;
 		"-N")
 			alpha="${alpha}${NUMERIC}"
-			shift
 			;;
 		"-s")
 			alpha="${alpha}${SYMBOL}"
-			shift
 			;;
 		"-r")
-			shift
-			alpha="${alpha}${1}"
-			shift
+			alpha="${alpha}${2}"
 			;;
 		"-h")
 			usage
 			exit 0
 			;;
 	esac
+	shift
 done
 
 if [ -z "${alpha}" ]; then
