@@ -1,0 +1,115 @@
+#!/bin/sh
+#
+# This is free and unencumbered software released into the public domain.
+#
+# Anyone is free to copy, modify, publish, use, compile, sell, or
+# distribute this software, either in source code form or as a compiled
+# binary, for any purpose, commercial or non-commercial, and by any
+# means.
+#
+# In jurisdictions that recognize copyright laws, the author or authors
+# of this software dedicate any and all copyright interest in the
+# software to the public domain. We make this dedication for the benefit
+# of the public at large and to the detriment of our heirs and
+# successors. We intend this dedication to be an overt act of
+# relinquishment in perpetuity of all present and future rights to this
+# software under copyright law.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+# For more information, please refer to <http://unlicense.org/>
+
+
+TINYALPHA="abcdefghijklmnopqrstuvwxyz"
+BIGALPHA="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+NUMERIC="0123456789"
+SYMBOL="~!@#$%^&*()_+\`-=[]\;',./{}|:\"<>?"
+
+count=8
+alpha=""
+
+usage() {
+	echo "${0} [options]"
+	echo "Options:"
+	echo "  -n           Don't print newline"
+	echo "  -c           Length of password"
+	echo "  -a           Tiny alphabet"
+	echo "  -A           Big alphabet"
+	echo "  -N           Numeric"
+	echo "  -s           Symbols"
+	echo "  -r [chars]   Custom character list"
+	echo "  -h           Display this"
+}
+
+args=`getopt nc:r:aANsh $*`
+
+if [ $? != 0 ]; then
+	usage
+	exit 1
+fi
+
+set -- $args
+
+for arg in $args; do
+	case ${arg} in
+		"-n")
+			NLFLAG="YES"
+			shift
+			;;
+		"-c")
+			count=${2}
+			shift
+			;;
+		"-a")
+			alpha="${alpha}${TINYALPHA}"
+			shift
+			;;
+		"-A")
+			alpha="${alpha}${BIGALPHA}"
+			shift
+			;;
+		"-N")
+			alpha="${alpha}${NUMERIC}"
+			shift
+			;;
+		"-s")
+			alpha="${alpha}${SYMBOL}"
+			shift
+			;;
+		"-r")
+			shift
+			alpha="${alpha}${1}"
+			shift
+			;;
+		"-h")
+			usage
+			exit 0
+			;;
+	esac
+done
+
+if [ -z "${alpha}" ]; then
+	usage
+	exit 1
+fi
+
+if [ $count -le 0 ]; then
+	usage
+	exit 1
+fi
+
+n=`head -c ${count} /dev/random | hexdump -e "${count}/1 \"%u \""`
+for i in $n; do
+	t=`expr ${i} % ${#alpha} + 1`
+	echo -n $alpha | cut -b $t | tr -d '\n'
+done
+
+if [ -z "$NLFLAG" ]; then
+	echo
+fi
