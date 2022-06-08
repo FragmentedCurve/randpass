@@ -104,11 +104,10 @@ if [ $count -le 0 ]; then
 	exit 1
 fi
 
-n=`head -c ${count} /dev/random | hexdump -e "${count}/1 \"%u \""`
-for i in $n; do
-	t=`expr ${i} % ${#alpha} + 1`
-	echo -n $alpha | cut -b $t | tr -d '\n'
-done
+random_numbers=`head -c $((count * 4))  /dev/random | hexdump -e '1 "%u "'`
+for i in $random_numbers; do
+	printf "%s" "$alpha" | cut -b $((i % ${#alpha} + 1))
+done | tr -d '\n'
 
 if [ -z "$NLFLAG" ]; then
 	echo
