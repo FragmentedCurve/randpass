@@ -47,44 +47,39 @@ usage() {
 	echo "  -h           Display this"
 }
 
-args=`getopt nc:r:aANsh $*`
-
 if [ $? != 0 ]; then
 	usage
 	exit 1
 fi
 
-set -- $args
-
-for arg in $args; do
-	case ${arg} in
-		"-n")
+while getopts "nc:r:aANsh" opt; do
+	case "$opt" in
+		n)
 			NLFLAG="YES"
 			;;
-		"-c")
-			count=${2}
+		c)
+			count="$OPTARG"
 			;;
-		"-a")
+		a)
 			alpha="${alpha}${TINYALPHA}"
 			;;
-		"-A")
+		A)
 			alpha="${alpha}${BIGALPHA}"
 			;;
-		"-N")
+		N)
 			alpha="${alpha}${NUMERIC}"
 			;;
-		"-s")
+		s)
 			alpha="${alpha}${SYMBOL}"
 			;;
-		"-r")
-			alpha="${alpha}${2}"
+		r)
+			alpha="${alpha}${OPTARG}"
 			;;
-		"-h")
+		h)
 			usage
 			exit 0
 			;;
 	esac
-	shift
 done
 
 if [ -z "${alpha}" ]; then
