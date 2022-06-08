@@ -18,7 +18,7 @@ On your friend's computer and need a random octal when he's not
 looking -- no problem, just do
 
     for f in $(find ~/); do
-        chmod $(randpass -r 01234567 -c 3) $f
+        chmod $(randpass -n -r 01234567 -c 3) $f
     done
 
 If you clone now, we'll even throw in a random MAC generator for free!
