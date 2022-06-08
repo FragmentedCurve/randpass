@@ -1,4 +1,4 @@
-# randpass - A Random Password Generator
+# A Random Password Generator
 
 An easy and flexible password generator. Many websites restrict what
 symbols can be used in a password. Lower your standards and meet those
