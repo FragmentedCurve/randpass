@@ -47,11 +47,6 @@ usage() {
 	echo "  -h           Display this"
 }
 
-if [ $? != 0 ]; then
-	usage
-	exit 1
-fi
-
 while getopts "nc:r:aANsh" opt; do
 	case "$opt" in
 		n)
@@ -78,6 +73,10 @@ while getopts "nc:r:aANsh" opt; do
 		h)
 			usage
 			exit 0
+			;;
+		*)
+			usage
+			exit 1
 			;;
 	esac
 done
