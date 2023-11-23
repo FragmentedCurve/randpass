@@ -21,4 +21,23 @@ looking -- no problem, just do
         chmod $(randpass -n -r 01234567 -c 3) $f
     done
 
-If you clone now, we'll even throw in a random MAC generator for free!
+~~If you clone now, we'll even throw in a random MAC generator for
+free!~~ _Offer expired._
+
+## Off-label Examples
+
+Random MAC:
+
+    for i in `seq 1 6`; do 
+	    ./randpass -c 2 -N -r ABCDEF;
+    done | tr '\n' : | rev | cut -b 2-
+
+Flip a coin:
+
+    randpass -r HT -c 1
+	
+A base64 encoded AES-256 key:
+
+    AESKEY=`randpass -n -r +/ -AaN -c 43`=
+
+

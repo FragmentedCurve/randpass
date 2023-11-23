@@ -1,0 +1,56 @@
+.Dd 2023-11-13
+.Dt randpass 1
+.Os
+.Sh NAME
+.Nm randpass
+.Nd A random password generator
+.Sh SYNOPSIS
+.Nm randpass
+.Op Fl AaNsn
+.Op Fl r Ar characters
+.Op Fl c Ar length
+.Sh DESCRIPTION
+Randomly generate a password using the given sample space of
+characters. Predefined sample spaces are chosen using the
+.Fl A a N
+and
+.Fl s
+flags. Repeating any of these flags will change the probabilities. For
+example,
+.Fl Aa
+implies that the chance of picking an uppercase and lowercase are
+equal. If we repeat a flag such as
+.Fl Aaa
+, then the chance of picking a lowercase is twice as likely picking an
+uppercase.
+.Pp
+The default source of randomness is /dev/random. If for
+some reason it can't be accessed,
+.Nm
+falls back to libc's PRNG with the current time as the seed.
+.Pp
+Unicode (and UTF-8) is not supported.
+.Pp
+.Sh OPTIONS
+.Bl -tag -width indent
+.It Fl A
+Uppercase alphabet characters.
+.It Fl a
+Lowercase alphabet characters.
+.It Fl N
+Numeric characters.
+.It Fl s
+Add the following symbols to the sample space:
+~!@#$%^&*()_+`-=[];',./{}|:"<>?\\
+.It Fl r Ar characters
+Add the string
+.Em characters
+to the sample space.
+.It Fl c Ar length
+The length of output.
+.It Fl n
+Don't print a newline.
+.Sh SEE ALSO
+.Xr rand 3 ,
+.Xr srand 3 ,
+.Xr random 4
