@@ -24,7 +24,7 @@ looking -- no problem, just do
 ~~If you clone now, we'll even throw in a random MAC generator for
 free!~~ _Offer expired._
 
-## Off-label Examples
+## Off-label Uses
 
 Random MAC:
 
