@@ -8,6 +8,8 @@
 #include <fcntl.h>
 #include <time.h>
 
+#include "findalloca.h"
+
 // nstring.h is not a completed library yet, but good enough for us.
 #include "nstring.h"
 
