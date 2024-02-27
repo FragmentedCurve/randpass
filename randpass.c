@@ -8,10 +8,6 @@
 #include <fcntl.h>
 #include <time.h>
 
-#include "findalloca.h"
-
-// nstring.h is not a completed library yet, but good enough for us.
-#include "nstring.h"
 
 // Predefined samples 
 const string TINYALPHA = $("abcdefghijklmnopqrstuvwxyz");
@@ -19,6 +15,9 @@ const string BIGALPHA  = $("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 const string NUMERIC   = $("0123456789");
 const string SYMBOL    = $("~!@#$%^&*()_+`-=[];',./{}|:\"<>?\\");
 
+// nstrings.h is not a completed library yet, but good enough for us.
+#define NSTRINGS_MAIN
+#include "nstrings.h"
 
 #define POOL_MAX 1024        // Hard limit on how many pools for the sample space.
 
