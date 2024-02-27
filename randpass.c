@@ -186,14 +186,16 @@ Main(int argc, string* argv)
 	
 	// Generate random string (or password)
 	random_init(&ctx);
-	for (size_t i = 0; i < password_length; ++i)
+	for (size_t i = 0; i < password_length; ++i) {
 		// Using stdio.h because nstring.h doesn't buffer.
 		putchar(random_choice(&ctx, &samples));
+	}
 
 	fflush(stdout);
 
-	if (show_newline)
+	if (show_newline) {
 		putchar('\n');
+	}
 
 	exit(0);
 }
