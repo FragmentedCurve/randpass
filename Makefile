@@ -1,5 +1,7 @@
-randpass: randpass.c nstring.h
-	$(CC) -std=c99 -O2 -s -Wall -Werror -Wno-unused-function -o randpass randpass.c
+CFLAGS=-std=c99 -pedantic -pedantic-errors -O2 -s -Wall -Werror -Wno-unused-function
+
+randpass: randpass.c nstrings.h
+	$(CC) $(CFLAGS) -o randpass randpass.c
 
 clean:
 	rm -f randpass

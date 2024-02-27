@@ -8,13 +8,6 @@
 #include <fcntl.h>
 #include <time.h>
 
-
-// Predefined samples 
-const string TINYALPHA = $("abcdefghijklmnopqrstuvwxyz");
-const string BIGALPHA  = $("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-const string NUMERIC   = $("0123456789");
-const string SYMBOL    = $("~!@#$%^&*()_+`-=[];',./{}|:\"<>?\\");
-
 // nstrings.h is not a completed library yet, but good enough for us.
 #define NSTRINGS_MAIN
 #include "nstrings.h"
@@ -129,11 +122,16 @@ Main(int argc, string* argv)
 		exit(-1);
 	}
 
+	const string TINYALPHA = $("abcdefghijklmnopqrstuvwxyz");
+	const string BIGALPHA  = $("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+	const string NUMERIC   = $("0123456789");
+	const string SYMBOL    = $("~!@#$%^&*()_+`-=[];',./{}|:\"<>?\\");
+
 	// Parse command arguments
 	for (int i = 1; i < argc; ++i) {
 		if (Equals$("-c", argv[i])) {
 			if (argc <= ++i) {
-				PrintErr$("An argument must be supplied to '-c'.\n");
+				PrintErr$("%S", "An argument must be supplied to '-c'.\n");
 				exit(-1);
 			}
 			// This is safe because argv[i] originally was
@@ -141,7 +139,7 @@ Main(int argc, string* argv)
 			password_length = atoi(argv[i].s);
 		} else if (Equals$("-r", argv[i])) {
 			if (argc <= ++i) {
-				PrintErr$("An argument must be supplied to '-r'.\n");
+				PrintErr$("%S", "An argument must be supplied to '-r'.\n");
 				exit(-1);
 			}
 			samplespace_append(&samples, argv[i]);
